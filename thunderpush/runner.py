@@ -40,6 +40,8 @@ def run_app():
 
     # Single-client only at the moment.
     ss.create_messenger(settings.APIKEY, settings.APISECRET)
+    
+    ss.create_messenger("user374", "1234")
 
     logger.info("Starting Thunderpush server at %s:%d",
         settings.HOST, settings.PORT)
