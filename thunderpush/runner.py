@@ -10,8 +10,7 @@ import optparse
 import logging
 
 logger = logging.getLogger()
-
-
+    
 def run_app():
     # configure logging level
     if settings.VERBOSE:
@@ -42,8 +41,10 @@ def run_app():
     ss.create_messenger(settings.APIKEY, settings.APISECRET)
     
     ss.create_messenger("user374", "1234")
+    
+    ss.import_messenger()    
 
-    logger.info("Starting Thunderpush2 server at %s:%d",
+    logger.info("Starting Thunderpush server at %s:%d",
         settings.HOST, settings.PORT)
 
     application.listen(settings.PORT, settings.HOST)
