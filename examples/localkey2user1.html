@@ -1,0 +1,19 @@
+<html>
+<head>
+</head>
+<body>
+<script src="../client/sockjs-0.3.min.js"></script>
+<script src="../client/livepush.js"></script>
+
+<script type="text/javascript">
+//console.log(LivePush.guid());
+LivePush.connect("localhost:8080", "user374", ["test2", "homepage2"], {log: true});
+//LivePush.connect("localhost:8080", "user374", ["test2", "homepage2"], {log: true, user: 'nicky'});
+
+LivePush.listen(function(data) {
+    console.log(data);
+});
+</script>
+
+</body>
+</html>

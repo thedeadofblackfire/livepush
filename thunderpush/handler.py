@@ -64,8 +64,8 @@ class ThunderSocketHandler(SockJSConnection):
             return
 
         # get singleton instance of SortingStation
-        ss = SortingStation.instance()
-
+        ss = SortingStation.instance()       
+              
         # get and store the messenger object for given apikey
         self.messenger = ss.get_messenger_by_apikey(self.apikey)
 

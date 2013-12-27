@@ -18,7 +18,7 @@ class SortingStation(object):
         SortingStation._instance = self
 
     @staticmethod
-    def instance():
+    def instance():        
         return SortingStation._instance
 
     def create_messenger(self, apikey, apisecret):
