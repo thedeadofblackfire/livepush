@@ -49,17 +49,11 @@ class SortingStation(object):
         cnn = umysql.Connection()
         cnn.connect (DB_HOST, DB_PORT, DB_USER, DB_PASSWD, DB_DB)
         rs = cnn.query("select user_id, token from ems_user where user_id != '' and token != ''")
-        for i, row in enumerate(rs.rows):  
-            #logger.info("Starting %s", row[0])
+        for i, row in enumerate(rs.rows):        
             logger.info(json.dumps(row))     
             messenger = Messenger(row[1], "1234")
             self.messengers_by_apikey[row[1]] = messenger            
             #self.create_messenger("%s".format(row[0]), "1234")
-            #self.create_messenger(row[1], row[0])
-        
-        user_id = "tata"
-        messenger = Messenger(user_id, "1234")
-        self.messengers_by_apikey[user_id] = messenger
-       
+                   
         cnn.close()
      
