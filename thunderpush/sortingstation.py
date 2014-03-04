@@ -5,6 +5,9 @@ from messenger import Messenger
 import settings
 #from thunderpush import settings
 
+# add appid as apikey to have multiple domain for 1 user
+# if no apikey found, try to load it dynamically from database
+
 
 logger = logging.getLogger()
 

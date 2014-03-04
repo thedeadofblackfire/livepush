@@ -40,7 +40,7 @@ def run_app():
     # Single-client only at the moment.
     ss.create_messenger(settings.APIKEY, settings.APISECRET)
     
-    ss.create_messenger("user1234", "1234")
+    #ss.create_messenger("user1234", "1234")
     
     ss.import_messenger()    
 
