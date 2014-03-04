@@ -18,8 +18,9 @@ def is_authenticated(f):
         ss = SortingStation.instance()
 
         apisecret = self.request.headers.get('X-Thunder-Secret-Key', None)
-        messenger = ss.get_messenger_by_apikey(kwargs['apikey'])
-
+        messenger = ss.get_messenger_or_import_by_apikey(kwargs['apikey'])
+        #messenger = ss.get_messenger_by_apikey(kwargs['apikey'])
+        
         if not messenger or apisecret != messenger.apisecret:
             self.error("Wrong API key/secret.", 401)
             return
