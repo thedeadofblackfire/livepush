@@ -42,7 +42,7 @@ def run_app():
     
     ss.create_messenger("user1234", "1234")
     
-    #ss.import_messenger()    
+    ss.import_messenger()    
 
     logger.info("Starting Thunderpush server at %s:%d",
         settings.HOST, settings.PORT)
