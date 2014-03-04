@@ -1,7 +1,8 @@
 import logging
 
 from sockjs.tornado import SockJSConnection
-from thunderpush.sortingstation import SortingStation
+from sortingstation import SortingStation
+#from thunderpush.sortingstation import SortingStation
 
 try:
     import simplejson as json

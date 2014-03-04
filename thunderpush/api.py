@@ -1,6 +1,7 @@
 import logging
 import tornado.web
-from thunderpush.sortingstation import SortingStation
+from sortingstation import SortingStation
+#from thunderpush.sortingstation import SortingStation
 
 logger = logging.getLogger()
 

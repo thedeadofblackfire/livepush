@@ -1,7 +1,7 @@
-from thunderpush.sortingstation import SortingStation
-from thunderpush.handler import ThunderSocketHandler
-from thunderpush import api
-from thunderpush import settings
+from sortingstation import SortingStation
+from handler import ThunderSocketHandler
+import api
+import settings
 
 from sockjs.tornado import SockJSRouter
 
@@ -40,9 +40,9 @@ def run_app():
     # Single-client only at the moment.
     ss.create_messenger(settings.APIKEY, settings.APISECRET)
     
-    #ss.create_messenger("user374", "1234")
+    ss.create_messenger("user1234", "1234")
     
-    ss.import_messenger()    
+    #ss.import_messenger()    
 
     logger.info("Starting Thunderpush server at %s:%d",
         settings.HOST, settings.PORT)

@@ -1,13 +1,13 @@
 import logging
-from thunderpush.messenger import Messenger
+from messenger import Messenger
+#change to that for local
+#from thunderpush.messenger import Messenger
+import settings
+#from thunderpush import settings
+
 
 logger = logging.getLogger()
 
-DB_HOST = 'localhost'
-DB_PORT = 3306
-DB_USER = 'root'
-DB_PASSWD = ''
-DB_DB = 'textapp'  
 
 import umysql
 
@@ -51,8 +51,9 @@ class SortingStation(object):
         rs = cnn.query("select user_id, token from ems_user where user_id != '' and token != ''")
         for i, row in enumerate(rs.rows):        
             logger.info(json.dumps(row))     
-            messenger = Messenger(row[1], "1234")
-            self.messengers_by_apikey[row[1]] = messenger            
+            #logger.info(json.dumps(row[0]))  
+            messenger = Messenger(row[0], "1234")
+            self.messengers_by_apikey[row[0]] = messenger            
             #self.create_messenger("%s".format(row[0]), "1234")
                    
         cnn.close()
