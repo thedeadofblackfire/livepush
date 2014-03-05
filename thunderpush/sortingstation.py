@@ -50,11 +50,22 @@ class SortingStation(object):
     def get_messenger_or_import_by_apikey(self, apikey):
         m = self.messengers_by_apikey.get(apikey, None)
         if not m:
-            logger.info("checking db %s", settings.DB_HOST)
+            logger.info("checking apikey %s on db for instanciation", apikey)
             cnn = umysql.Connection()
+            # clean user
+            currentkey = apikey[4:]
             cnn.connect (settings.DB_HOST, settings.DB_PORT, settings.DB_USER, settings.DB_PASSWD, settings.DB_DB)
-            rs = cnn.query("select user_id, token from ems_user where user_id = %s or token = %s", (apikey,apikey))
-            print "Id: %s -- Title: %s" % cur.fetchone()
+            rs = cnn.query("select user_id, token from ems_user where user_id = %s or token = %s", (currentkey,apikey))
+            logger.info(json.dumps(rs.rows)) 
+            if rs.rows:
+                logger.info(json.dumps(rs.rows[0])) 
+                currentkey = 'user'+str(rs.rows[0][0])
+                #currentkey = str(row[1])
+                logger.info(currentkey) 
+                messenger = Messenger(currentkey, "1234")
+                self.messengers_by_apikey[currentkey] = messenger   
+                m = self.messengers_by_apikey.get(apikey, None)                
+                #print "Id: %s -- Title: %s" % rs.rows[0]
                       
         return m
 
