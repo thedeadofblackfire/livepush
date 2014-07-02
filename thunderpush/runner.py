@@ -1,12 +1,17 @@
 from thunderpush.sortingstation import SortingStation
 from thunderpush.handler import ThunderSocketHandler
+#from thunderpush import api, __version__
 from thunderpush import api
 from thunderpush import settings
 
+__version__ = '0.9.7'
+
 from sockjs.tornado import SockJSRouter
 
+import sys
 import tornado.ioloop
-import optparse
+#import optparse
+import argparse
 import logging
 
 logger = logging.getLogger()
@@ -42,7 +47,7 @@ def run_app():
     
     #ss.create_messenger("user374", "1234")
     
-    ss.import_messenger()    
+    #ss.import_messenger()    
 
     logger.info("Starting Thunderpush server at %s:%d",
         settings.HOST, settings.PORT)
@@ -54,7 +59,7 @@ def run_app():
     except KeyboardInterrupt:
         logger.info("Shutting down...")
 
-
+'''
 def parse_arguments(opts, args):
     for optname in ["PORT", "HOST", "VERBOSE", "DEBUG"]:
         value = getattr(opts, optname, None)
@@ -69,9 +74,56 @@ def parse_arguments(opts, args):
 def validate_arguments(parser, opts, args):
     if len(args) != 2:
         parser.error("incorrect number of arguments")
+'''
 
+def update_settings(args):
+    args = vars(args)
 
+    for optname in ["PORT", "HOST", "VERBOSE", "DEBUG"]:
+        value = args.get(optname, None)
+
+        if not value is None:
+            setattr(settings, optname, value)
+
+    settings.APIKEY = args['clientkey']
+    settings.APISECRET = args['apikey']
+    
+def parse_args(args):
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('-p', '--port',
+        default=settings.PORT,
+        help='binds server to custom port',
+        action="store", type=int, dest="PORT")
+
+    parser.add_argument('-H', '--host',
+        default=settings.HOST,
+        help='binds server to custom address',
+        action="store", type=str, dest="HOST")
+
+    parser.add_argument('-v', '--verbose',
+        default=settings.VERBOSE,
+        help='verbose mode',
+        action="store_true", dest="VERBOSE")
+
+    parser.add_argument('-d', '--debug',
+        default=settings.DEBUG,
+        help='debug mode (useful for development)',
+        action="store_true", dest="DEBUG")
+
+    parser.add_argument('-V', '--version', 
+        action='version', version=__version__)
+
+    parser.add_argument('clientkey',
+        help='client key')
+
+    parser.add_argument('apikey',
+        help='server API key')
+
+    return parser.parse_args(args)
+    
 def main():
+    '''
     usage = "usage: %prog [options] apikey apisecret"
     parser = optparse.OptionParser(usage=usage)
 
@@ -99,6 +151,9 @@ def main():
 
     validate_arguments(parser, opts, args)
     parse_arguments(opts, args)
+    '''
+    args = parse_args(sys.argv[1:])
+    update_settings(args)
     run_app()
 
 if __name__ == "__main__":

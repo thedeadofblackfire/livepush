@@ -1,0 +1,9 @@
+<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+<script src="../client/livepush.js"></script>
+
+<script type="text/javascript">
+LivePush.connect("localhost:8080", "toto", ["test"], {log: true, user: 'nick'});
+LivePush.listen(function(data) {
+    console.log(data);
+});
+</script>

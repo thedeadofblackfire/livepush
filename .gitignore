@@ -6,3 +6,5 @@
 build
 *.sublime-project
 *.sublime-workspace
+docs/build
+.vagrant

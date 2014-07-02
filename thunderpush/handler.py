@@ -45,7 +45,8 @@ class ThunderSocketHandler(SockJSConnection):
 
         messages = {
             'CONNECT': self.handle_connect,
-            'SUBSCRIBE': self.handle_subscribe
+            'SUBSCRIBE': self.handle_subscribe,
+            'UNSUBSCRIBE': self.handle_unsubscribe
         }
 
         try:
@@ -83,12 +84,24 @@ class ThunderSocketHandler(SockJSConnection):
             self.close(9001, "Subscribing before connecting.")
             return
 
-        channels = args.split(":")
+        channels = filter(None, args.split(":"))
 
-        if len(channels):
-            for channel in channels:
-                self.messenger.subsribe_user_to_channel(self, channel)
+        for channel in channels:
+            self.messenger.subscribe_user_to_channel(self, channel)
 
+    def handle_unsubscribe(self, args):
+        if not self.connected:
+            logger.warning("User not connected.")
+
+            # close the connection, the user issues commands in a wrong order
+            self.close(9001, "Subscribing before connecting.")
+            return
+
+        channels = filter(None, args.split(":"))
+
+        for channel in channels:
+            self.messenger.unsubscribe_user_from_channel(self, channel)
+            
     def close(self, code=3000, message="Go away!"):
         self.session.close(code, message)
 
