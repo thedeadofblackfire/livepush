@@ -17,6 +17,8 @@ Install
 	
 	pip install thunderpush
     pip install --upgrade thunderpush
+    
+    python setup.py install
 
 Usage
 =====
