@@ -1,0 +1,21 @@
+<html>
+<head>
+</head>
+<body>
+<!--<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script> -->
+<script src="../client/sockjs-0.3.min.js"></script>
+<script src="../client/livepush.js"></script>
+
+<script type="text/javascript">
+//console.log(LivePush.guid());
+//LivePush.connect("localhost:8080", "user388", ["test", "visitor", "homepage"], {log: true});
+//LivePush.connect("thunderpush.thomasnicolas.com:8080", "user388", ["test", "homepage"], {log: true, user: 'nick'});
+LivePush.connect("push.e-project.org:8080", "user1324", ["test", "homepage"], {log: true, user: 'nick'});
+
+LivePush.listen(function(data) {
+    console.log(data);
+});
+</script>
+
+</body>
+</html>
